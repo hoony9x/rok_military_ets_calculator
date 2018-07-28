@@ -358,8 +358,35 @@ class Calc extends React.Component {
       ets_date = new Date(ets_date.getTime() - 86400 * decreased_date * 1000);
     }
 
+    const total = ets_date.getTime() - this.state.enrollment_date.getTime();
+    const current = (new Date()).getTime() - this.state.enrollment_date.getTime();
+    const remain = ets_date.getTime() - (new Date()).getTime();
+
+    let rate = Math.round(current / total * 100);
+    let remaining_fucking_date = Math.ceil(remain / (1000 * 86400));
+    let total_fucking_date = Math.ceil(total / (1000 * 86400));
+
+    if(remaining_fucking_date > total_fucking_date) {
+      remaining_fucking_date = total_fucking_date;
+    }
+
+    if(remaining_fucking_date < 0) {
+      remaining_fucking_date = 0;
+    }
+
+    if(rate > 100) {
+      rate = 100;
+    }
+
+    if(rate < 0) {
+      rate = 0;
+    }
+
     this.setState({
-      ets_date: ets_date
+      ets_date: ets_date,
+      completed_rate: rate,
+      remaining_fucking_date: remaining_fucking_date,
+      total_fucking_date: total_fucking_date
     });
   };
 
@@ -434,8 +461,35 @@ class Calc extends React.Component {
       ets_date = new Date(ets_date.getTime() - 86400 * decreased_date * 1000);
     }
 
+    const total = ets_date.getTime() - this.state.enrollment_date.getTime();
+    const current = (new Date()).getTime() - this.state.enrollment_date.getTime();
+    const remain = ets_date.getTime() - (new Date()).getTime();
+
+    let rate = Math.round(current / total * 100);
+    let remaining_fucking_date = Math.ceil(remain / (1000 * 86400));
+    let total_fucking_date = Math.ceil(total / (1000 * 86400));
+
+    if(remaining_fucking_date > total_fucking_date) {
+      remaining_fucking_date = total_fucking_date;
+    }
+
+    if(remaining_fucking_date < 0) {
+      remaining_fucking_date = 0;
+    }
+
+    if(rate > 100) {
+      rate = 100;
+    }
+
+    if(rate < 0) {
+      rate = 0;
+    }
+
     this.setState({
-      ets_date: ets_date
+      ets_date: ets_date,
+      completed_rate: rate,
+      remaining_fucking_date: remaining_fucking_date,
+      total_fucking_date: total_fucking_date
     });
   };
 
@@ -510,8 +564,35 @@ class Calc extends React.Component {
       ets_date = new Date(ets_date.getTime() - 86400 * decreased_date * 1000);
     }
 
+    const total = ets_date.getTime() - this.state.enrollment_date.getTime();
+    const current = (new Date()).getTime() - this.state.enrollment_date.getTime();
+    const remain = ets_date.getTime() - (new Date()).getTime();
+
+    let rate = Math.round(current / total * 100);
+    let remaining_fucking_date = Math.ceil(remain / (1000 * 86400));
+    let total_fucking_date = Math.ceil(total / (1000 * 86400));
+
+    if(remaining_fucking_date > total_fucking_date) {
+      remaining_fucking_date = total_fucking_date;
+    }
+
+    if(remaining_fucking_date < 0) {
+      remaining_fucking_date = 0;
+    }
+
+    if(rate > 100) {
+      rate = 100;
+    }
+
+    if(rate < 0) {
+      rate = 0;
+    }
+
     this.setState({
-      ets_date: ets_date
+      ets_date: ets_date,
+      completed_rate: rate,
+      remaining_fucking_date: remaining_fucking_date,
+      total_fucking_date: total_fucking_date
     });
   };
 
