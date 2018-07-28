@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "ROK Military ETS Calculator",
+  "name": "대한민국 군대 전역일계산기",
   "icons": [
     {
       "src": "favicon.ico",
