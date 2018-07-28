@@ -650,7 +650,7 @@ class Calc extends React.Component {
         {this.state.ets_date !== null &&
         <React.Fragment>
           <Typography gutterBottom noWrap>
-            전역 일자는 {this.displayETSDate()} 입니다.
+            전역일은 {this.displayETSDate()} 입니다.
           </Typography>
 
           <Typography gutterBottom noWrap>
