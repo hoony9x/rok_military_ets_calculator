@@ -49,7 +49,10 @@ class Calc extends React.Component {
     this.state = {
       type: 'NONE',
       enrollment_date: new Date(),
-      ets_date: null
+      ets_date: null,
+      completed_rate: 0,
+      remaining_fucking_date: 0,
+      total_fucking_date: 0
     };
   }
 
@@ -250,8 +253,35 @@ class Calc extends React.Component {
       ets_date = new Date(ets_date.getTime() - 86400 * decreased_date * 1000);
     }
 
+    const total = ets_date.getTime() - this.state.enrollment_date.getTime();
+    const current = (new Date()).getTime() - this.state.enrollment_date.getTime();
+    const remain = ets_date.getTime() - (new Date()).getTime();
+
+    let rate = Math.round(current / total * 100);
+    let remaining_fucking_date = Math.ceil(remain / (1000 * 86400));
+    let total_fucking_date = Math.ceil(total / (1000 * 86400));
+
+    if(remaining_fucking_date > total_fucking_date) {
+      remaining_fucking_date = total_fucking_date;
+    }
+
+    if(remaining_fucking_date < 0) {
+      remaining_fucking_date = 0;
+    }
+
+    if(rate > 100) {
+      rate = 100;
+    }
+
+    if(rate < 0) {
+      rate = 0;
+    }
+
     this.setState({
-      ets_date: ets_date
+      ets_date: ets_date,
+      completed_rate: rate,
+      remaining_fucking_date: remaining_fucking_date,
+      total_fucking_date: total_fucking_date
     });
   };
 
@@ -348,7 +378,6 @@ class Calc extends React.Component {
     if(diff >= 0) {
       decreased_date = Math.floor(diff / 14) + 1;
     }
-    console.log(decreased_date);
 
     year += 2;
     date -= 1;
@@ -425,7 +454,6 @@ class Calc extends React.Component {
     if(diff >= 0) {
       decreased_date = Math.floor(diff / 14) + 1;
     }
-    console.log(decreased_date);
 
     year += 2;
     date -= 1;
@@ -543,6 +571,17 @@ class Calc extends React.Component {
           <Typography gutterBottom noWrap>
             전역 일자는 {this.displayETSDate()} 입니다.
           </Typography>
+
+          <Typography gutterBottom noWrap>
+            총 복무일 {this.state.total_fucking_date}일 중 남은 복무일은 {this.state.remaining_fucking_date}일 입니다.
+          </Typography>
+
+          <Typography gutterBottom noWrap>
+            ({this.state.completed_rate}% 완료)
+          </Typography>
+
+          <br/>
+
           <Typography variant="caption" gutterBottom align="center">
             본 계산 결과는 정확하지 않을 수 있으며 행정효력이 없습니다.
           </Typography>

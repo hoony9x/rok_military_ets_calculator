@@ -41,6 +41,9 @@ class App extends React.Component {
                 <Typography variant="title" gutterBottom>
                   대한민국 군대 전역일 계산기
                 </Typography>
+                <Typography variant="caption" gutterBottom align="center">
+                  2018년 7월 27일에 발표된 군 복무 단축 계획안 반영
+                </Typography>
 
                 <Calc />
 
