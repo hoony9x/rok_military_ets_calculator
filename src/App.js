@@ -130,6 +130,10 @@ class App extends Component {
       case 6:
         day = "토";
         break;
+
+      default:
+        day = "?";
+        break;
     }
 
     return year + "년 " + month + "월 " + date + "일 " + day + "요일";
@@ -176,6 +180,9 @@ class App extends Component {
       case 'REPLACE_NORMAL':
         ets_date = this.calcForReplaceNormal();
         break;
+
+      default:
+        break;
     }
 
     this.setState({
@@ -184,9 +191,26 @@ class App extends Component {
   };
 
   calcForArmy = (year, month, date) => {
+    const shortening_start_date = new Date(2017, 0, 3); // 2017년 1월 3일
+
+    const shortening_start_unix_time = (shortening_start_date).getTime() / 1000;
+    const enroll_unix_time = (this.state.enrollment_date).getTime() / 1000;
+
+    let diff = Math.floor((enroll_unix_time - shortening_start_unix_time) / 86400);
+    let decreased_date = 0;
+    if(diff >= 0) {
+      decreased_date = Math.floor(diff / 14) + 1;
+    }
+
     year += 1;
-    month += 9;
     date -= 1;
+
+    if(decreased_date > 90) {
+      month += 6;
+    }
+    else {
+      month += 9;
+    }
 
     if(date === 0) {
       date += 31;
@@ -222,10 +246,21 @@ class App extends Component {
             date = 28;
           }
         }
+        break;
+
+      default:
+        break;
     }
 
     month -= 1;
-    return new Date(year, month, date);
+    let ets_date = new Date(year, month, date);
+
+    console.log(ets_date);
+    if(decreased_date <= 90) {
+      ets_date = new Date(ets_date.getTime() - 86400 * decreased_date * 1000);
+    }
+
+    return ets_date;
   };
 
   calcForNavy = () => {
@@ -304,9 +339,15 @@ class App extends Component {
                 <br/>
 
                 {this.state.ets_date !== null &&
-                <Typography gutterBottom noWrap>
-                  전역 일자는 {this.displayETSDate()} 입니다.
-                </Typography>
+                <React.Fragment>
+                  <Typography gutterBottom noWrap>
+                    전역 일자는 {this.displayETSDate()} 입니다.
+                  </Typography>
+                  <Typography variant="caption" gutterBottom align="center">
+                    본 계산 결과는 정확하지 않을 수 있으며 행정효력이 없습니다.
+                  </Typography>
+                </React.Fragment>
+
                 }
 
                 <br/>
