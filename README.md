@@ -9,13 +9,13 @@
 ### Requirements
 * Node.JS (with NPM)
 
-## Local Test
+## Local Development Run
 ```sh
 $ npm install
 $ npm start
 ```
 
-## Build
+## Build Production Files
 build 후 생성된 web static files 를 알아서 올려서 쓰면 된다. (...)
 ```sh
 $ npm install
