@@ -39,6 +39,10 @@ const types = [
   {
     name: '사회복무요원',
     id: 'REPLACE_NORMAL'
+  },
+  {
+    name: '산업기능요원 (보충역)',
+    id: 'REPLACE_UNDERGRADUATE_GROUP_2'
   }
 ];
 
@@ -173,6 +177,10 @@ class Calc extends React.Component {
 
       case 'REPLACE_NORMAL':
         this.calcForReplaceNormal();
+        break;
+
+      case 'REPLACE_UNDERGRADUATE_GROUP_2':
+        this.calcForReplaceUndergraduateGroup2();
         break;
 
       default:
@@ -515,6 +523,112 @@ class Calc extends React.Component {
     if(decreased_date > 90) {
       year -= 1;
       month += 9;
+    }
+
+    if(date === 0) {
+      date += 31;
+      month -= 1;
+    }
+
+    if(month > 12) {
+      month -= 12;
+      year += 1;
+    }
+
+    switch(month) {
+      case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+      if(date > 31) {
+        date = 31;
+      }
+      break;
+
+      case 4: case 6: case 9: case 11:
+      if(date > 30) {
+        date = 30;
+      }
+      break;
+
+      case 2:
+        if(this.isLeapYear(year) === true) {
+          if(date > 29) {
+            date = 29;
+          }
+        }
+        else {
+          if(date > 28) {
+            date = 28;
+          }
+        }
+        break;
+
+      default:
+        break;
+    }
+
+    month -= 1;
+    let ets_date = new Date(year, month, date);
+
+    if(decreased_date <= 90) {
+      ets_date = new Date(ets_date.getTime() - 86400 * decreased_date * 1000);
+    }
+
+    const total = ets_date.getTime() - this.state.enrollment_date.getTime();
+    const current = (new Date()).getTime() - this.state.enrollment_date.getTime();
+    const remain = ets_date.getTime() - (new Date()).getTime();
+
+    let rate = Math.round(current / total * 100);
+    let remaining_fucking_date = Math.ceil(remain / (1000 * 86400));
+    let total_fucking_date = Math.ceil(total / (1000 * 86400));
+
+    if(remaining_fucking_date > total_fucking_date) {
+      remaining_fucking_date = total_fucking_date;
+    }
+
+    if(remaining_fucking_date < 0) {
+      remaining_fucking_date = 0;
+    }
+
+    if(rate > 100) {
+      rate = 100;
+    }
+
+    if(rate < 0) {
+      rate = 0;
+    }
+
+    this.setState({
+      ets_date: ets_date,
+      completed_rate: rate,
+      remaining_fucking_date: remaining_fucking_date,
+      total_fucking_date: total_fucking_date
+    });
+  };
+
+  calcForReplaceUndergraduateGroup2 = () => {
+    const shortening_start_date = new Date(2016, 7, 3); // 2016년 8월 3일
+
+    let year = this.state.enrollment_date.getFullYear();
+    let month = this.state.enrollment_date.getMonth() + 1;
+    let date = this.state.enrollment_date.getDate();
+
+    const shortening_start_unix_time = (shortening_start_date).getTime() / 1000;
+    const enroll_unix_time = (this.state.enrollment_date).getTime() / 1000;
+
+    let diff = Math.floor((enroll_unix_time - shortening_start_unix_time) / 86400);
+    let decreased_date = 0;
+    if(diff >= 0) {
+      decreased_date = Math.floor(diff / 14) + 1;
+    }
+
+    year += 2;
+    date -= 1;
+
+    if(decreased_date > 90) {
+      month += 11;
+    }
+    else {
+      year += 1;
+      month += 2;
     }
 
     if(date === 0) {
