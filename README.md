@@ -1,6 +1,8 @@
 # 대한민국 군대 전역일 계산기
 #### ROK Military ETS Calculator
 
+https://rok-military-ets-calc.khhan1993.com
+
 군 복무 단축 계획이 나온 후, 단축일을 반영한 계산기가 없길래 3시간만에 얼렁 만들어 봤다.  
 하지만 이제는 다들 업데이트가 되어서 이걸 찾는 사람은 없을 것 같다. (...)
 
