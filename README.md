@@ -33,6 +33,3 @@ $ npm run build
 [React](https://reactjs.org)  
 [Material UI](https://material-ui.com)  
 [Disqus](https://disqus.com)  
-
-## License
-너무 간단한 앱이라 뭐 라이센스란게 있어야할지 모르겠습니다. (...)
